@@ -1,0 +1,19 @@
+{
+  "deploy_settings": {
+    "default": {
+      "skill_id": "amzn1.ask.skill.dc8f2311-cad2-41f3-baf0-df533e3fecc0",
+      "was_cloned": false,
+      "merge": {
+        "manifest": {
+          "apis": {
+            "custom": {
+              "endpoint": {
+                "uri": "arn:aws:lambda:us-east-1:679180307287:function:UnofficialStarWars"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
