@@ -6,7 +6,7 @@ const APP_ID = "amzn1.ask.skill.dc8f2311-cad2-41f3-baf0-df533e3fecc0";
 
 const handlers = {
     'LaunchRequest': function () {
-        this.response.speak("I am A L 4 X A, Human Cyborg Relations." + getRandomQuestion()).listen("I am fluent in more than 6 million languages." + getRandomQuestion());
+        this.response.speak("I am A L 3 X A, Human Cyborg Relations." + getRandomQuestion()).listen("I am fluent in more than 6 million languages." + getRandomQuestion());
         this.emit(":responseReady");
     },
     'PersonIntent': function () {
