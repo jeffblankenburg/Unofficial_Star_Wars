@@ -13,7 +13,14 @@
             }
           }
         }
-      }
+      },
+      "in_skill_products": [
+        {
+          "deploy_status": "Update",
+          "filePath": "isps/entitlement/Droid.json",
+          "productId": "amzn1.adg.product.8fc8fc75-ded6-4404-a829-aa9a870ac9d8"
+        }
+      ]
     }
   }
 }

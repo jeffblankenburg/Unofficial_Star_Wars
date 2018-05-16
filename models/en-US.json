@@ -1,603 +1,634 @@
 {
   "interactionModel": {
-    "languageModel": {
-      "invocationName": "unofficial star wars",
-      "intents": [
-        {
-          "name": "AMAZON.CancelIntent",
-          "samples": []
-        },
-        {
-          "name": "AMAZON.HelpIntent",
-          "samples": []
-        },
-        {
-          "name": "AMAZON.StopIntent",
-          "samples": []
-        },
-        {
-          "name": "PersonIntent",
-          "slots": [
-            {
-              "name": "person",
-              "type": "Person"
-            }
+      "languageModel": {
+          "invocationName": "unofficial star wars",
+          "intents": [
+              {
+                  "name": "AMAZON.CancelIntent",
+                  "samples": []
+              },
+              {
+                  "name": "AMAZON.HelpIntent",
+                  "samples": []
+              },
+              {
+                  "name": "AMAZON.StopIntent",
+                  "samples": []
+              },
+              {
+                  "name": "PersonIntent",
+                  "slots": [
+                      {
+                          "name": "person",
+                          "type": "Person"
+                      }
+                  ],
+                  "samples": [
+                      "about {person}",
+                      "tell me about {person}",
+                      "who is {person}",
+                      "{person}"
+                  ]
+              },
+              {
+                  "name": "DroidIntent",
+                  "slots": [
+                      {
+                          "name": "droid",
+                          "type": "Droid"
+                      }
+                  ],
+                  "samples": [
+                      "about {droid}",
+                      "who is {droid}",
+                      "{droid}",
+                      "tell me about {droid}"
+                  ]
+              },
+              {
+                  "name": "VehicleIntent",
+                  "slots": [
+                      {
+                          "name": "vehicle",
+                          "type": "Vehicle"
+                      }
+                  ],
+                  "samples": [
+                      "about {vehicle}",
+                      "tell me about {vehicle}",
+                      "{vehicle}",
+                      "what is {vehicle}"
+                  ]
+              },
+              {
+                  "name": "LocationIntent",
+                  "slots": [
+                      {
+                          "name": "location",
+                          "type": "Location"
+                      }
+                  ],
+                  "samples": [
+                      "about {location}",
+                      "where is {location}",
+                      "{location}",
+                      "what is {location}"
+                  ]
+              },
+              {
+                  "name": "WeaponIntent",
+                  "slots": [
+                      {
+                          "name": "weapon",
+                          "type": "Weapon"
+                      }
+                  ],
+                  "samples": [
+                      "about {weapon}",
+                      "tell me about {weapon}",
+                      "{weapon}",
+                      "what is {weapon}"
+                  ]
+              },
+              {
+                  "name": "BuyIntent",
+                  "slots": [
+                      {
+                          "name": "product",
+                          "type": "Product"
+                      }
+                  ],
+                  "samples": [
+                      "tell me about {product} pack",
+                      "tell me about {product}",
+                      "{product}",
+                      "{product} pack",
+                      "get the {product}",
+                      "buy the {product}",
+                      "buy the {product} pack"
+                  ]
+              }
           ],
-          "samples": [
-            "about {person}",
-            "tell me about {person}",
-            "who is {person}",
-            "{person}"
+          "types": [
+              {
+                  "name": "Person",
+                  "values": [
+                      {
+                          "name": {
+                              "value": "Qui-Gon Jinn",
+                              "synonyms": [
+                                  "qui gon"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Watto"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Rey"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Obi-Wan Kenobi",
+                              "synonyms": [
+                                  "obi one",
+                                  "obi wan"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Mace Windu"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Yoda"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Kylo Ren",
+                              "synonyms": [
+                                  "Ben Solo"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Lando Calrissian",
+                              "synonyms": [
+                                  "lando"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Jango Fett",
+                              "synonyms": [
+                                  "fat",
+                                  "fett"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Jar Jar Binks",
+                              "synonyms": [
+                                  "jar jar"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Han Solo",
+                              "synonyms": [
+                                  "han"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Greedo"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "General Grievous"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "General Hux"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Darth Vader",
+                              "synonyms": [
+                                  "vader"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Darth Maul"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Count Dooku"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Chewbacca",
+                              "synonyms": [
+                                  "chewie"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Boss Nass"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Admiral Motti"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Admiral Ackbar",
+                              "synonyms": [
+                                  "ackbar"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Luke Skywalker",
+                              "synonyms": [
+                                  "skywalker",
+                                  "luke"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Poe Dameron",
+                              "synonyms": [
+                                  "poe"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Nute Gunray",
+                              "synonyms": [
+                                  "nute"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Salacious B. Crumb"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Saw Gerrera"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Wedge Antilles"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Bib Fortuna"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Grand Moff Tarkin"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Leia Organa",
+                              "synonyms": [
+                                  "general leia",
+                                  "leia",
+                                  "princess leia"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Boba Fett",
+                              "synonyms": [
+                                  "fat",
+                                  "fett"
+                              ]
+                          }
+                      }
+                  ]
+              },
+              {
+                  "name": "Droid",
+                  "values": [
+                      {
+                          "name": {
+                              "value": "G2-1B7"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "R5-D4"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "K-2S0",
+                              "synonyms": [
+                                  "k 2 s o",
+                                  "k 2 esso"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "IG-88",
+                              "synonyms": [
+                                  "i g 8 8",
+                                  "i g 88"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "BB-9E"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "2-1B",
+                              "synonyms": [
+                                  "medical droid"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "BB-8"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "R2-D2",
+                              "synonyms": [
+                                  "R2"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "4-LOM",
+                              "synonyms": [
+                                  "4 LOM",
+                                  "4 L O M"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "C-3PO",
+                              "synonyms": [
+                                  "3PO"
+                              ]
+                          }
+                      }
+                  ]
+              },
+              {
+                  "name": "Vehicle",
+                  "values": [
+                      {
+                          "name": {
+                              "value": "Y-Wing Starfighter",
+                              "synonyms": [
+                                  "y wing"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Tie Fighter"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Ski Speeder"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Tantive IV",
+                              "synonyms": [
+                                  "tantive four"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Speeder Bike"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Snowspeeder"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Slave I",
+                              "synonyms": [
+                                  "slave one"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Sandcrawler"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "X-Wing Starfighter",
+                              "synonyms": [
+                                  "x wing"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Millennium Falcon"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "AT-AT",
+                              "synonyms": [
+                                  "all terrain armored transport",
+                                  "at at"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "AT-ST"
+                          }
+                      }
+                  ]
+              },
+              {
+                  "name": "Location",
+                  "values": [
+                      {
+                          "name": {
+                              "value": "Yavin 4",
+                              "synonyms": [
+                                  "yavin four"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Naboo"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Kashyyyk",
+                              "synonyms": [
+                                  "kasheek"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Jakku"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Endor"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Death Star II",
+                              "synonyms": [
+                                  "death star two"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Dagobah"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Bespin"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Alderaan"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Death Star"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Hoth"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Coruscant"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Tatooine"
+                          }
+                      }
+                  ]
+              },
+              {
+                  "name": "Weapon",
+                  "values": [
+                      {
+                          "name": {
+                              "value": "Blaster Rifle"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Z6 Riot Control Baton"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Thermal Detonator"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Kylo Ren's Lightsaber"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Ion Cannon"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Force Lightning"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Electro-Chain Whip"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Bowcaster"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Lightsaber"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "Blaster Pistol",
+                              "synonyms": [
+                                  "blaster"
+                              ]
+                          }
+                      }
+                  ]
+              },
+              {
+                  "name": "Product",
+                  "values": [
+                      {
+                          "name": {
+                              "value": "droid",
+                              "synonyms": [
+                                  "droid pack"
+                              ]
+                          }
+                      }
+                  ]
+              }
           ]
-        },
-        {
-          "name": "DroidIntent",
-          "slots": [
-            {
-              "name": "droid",
-              "type": "Droid"
-            }
-          ],
-          "samples": [
-            "about {droid}",
-            "who is {droid}",
-            "{droid}",
-            "tell me about {droid}"
-          ]
-        },
-        {
-          "name": "VehicleIntent",
-          "slots": [
-            {
-              "name": "vehicle",
-              "type": "Vehicle"
-            }
-          ],
-          "samples": [
-            "about {vehicle}",
-            "tell me about {vehicle}",
-            "{vehicle}",
-            "what is {vehicle}"
-          ]
-        },
-        {
-          "name": "LocationIntent",
-          "slots": [
-            {
-              "name": "location",
-              "type": "Location"
-            }
-          ],
-          "samples": [
-            "about {location}",
-            "where is {location}",
-            "{location}",
-            "what is {location}"
-          ]
-        },
-        {
-          "name": "WeaponIntent",
-          "slots": [
-            {
-              "name": "weapon",
-              "type": "Weapon"
-            }
-          ],
-          "samples": [
-            "about {weapon}",
-            "tell me about {weapon}",
-            "{weapon}",
-            "what is {weapon}"
-          ]
-        }
-      ],
-      "types": [
-        {
-          "values": [
-            {
-              "name": {
-                "value": "Qui-Gon Jinn",
-                "synonyms": [
-                  "qui gon"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "Watto"
-              }
-            },
-            {
-              "name": {
-                "value": "Rey"
-              }
-            },
-            {
-              "name": {
-                "value": "Obi-Wan Kenobi",
-                "synonyms": [
-                  "obi one",
-                  "obi wan"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "Mace Windu"
-              }
-            },
-            {
-              "name": {
-                "value": "Yoda"
-              }
-            },
-            {
-              "name": {
-                "value": "Kylo Ren",
-                "synonyms": [
-                  "Ben Solo"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "Lando Calrissian",
-                "synonyms": [
-                  "lando"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "Jango Fett",
-                "synonyms": [
-                  "fat",
-                  "fett"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "Jar Jar Binks",
-                "synonyms": [
-                  "jar jar"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "Han Solo",
-                "synonyms": [
-                  "han"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "Greedo"
-              }
-            },
-            {
-              "name": {
-                "value": "General Grievous"
-              }
-            },
-            {
-              "name": {
-                "value": "General Hux"
-              }
-            },
-            {
-              "name": {
-                "value": "Darth Vader",
-                "synonyms": [
-                  "vader"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "Darth Maul"
-              }
-            },
-            {
-              "name": {
-                "value": "Count Dooku"
-              }
-            },
-            {
-              "name": {
-                "value": "Chewbacca",
-                "synonyms": [
-                  "chewie"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "Boss Nass"
-              }
-            },
-            {
-              "name": {
-                "value": "Admiral Motti"
-              }
-            },
-            {
-              "name": {
-                "value": "Admiral Ackbar",
-                "synonyms": [
-                  "ackbar"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "Luke Skywalker",
-                "synonyms": [
-                  "skywalker",
-                  "luke"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "Poe Dameron",
-                "synonyms": [
-                  "poe"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "Nute Gunray",
-                "synonyms": [
-                  "nute"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "Salacious B. Crumb"
-              }
-            },
-            {
-              "name": {
-                "value": "Saw Gerrera"
-              }
-            },
-            {
-              "name": {
-                "value": "Wedge Antilles"
-              }
-            },
-            {
-              "name": {
-                "value": "Bib Fortuna"
-              }
-            },
-            {
-              "name": {
-                "value": "Grand Moff Tarkin"
-              }
-            },
-            {
-              "name": {
-                "value": "Leia Organa",
-                "synonyms": [
-                  "general leia",
-                  "leia",
-                  "princess leia"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "Boba Fett",
-                "synonyms": [
-                  "fat",
-                  "fett"
-                ]
-              }
-            }
-          ],
-          "name": "Person"
-        },
-        {
-          "values": [
-            {
-              "name": {
-                "value": "G2-1B7"
-              }
-            },
-            {
-              "name": {
-                "value": "R5-D4"
-              }
-            },
-            {
-              "name": {
-                "value": "K-2S0",
-                "synonyms": [
-                  "k 2 s o",
-                  "k 2 esso"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "IG-88",
-                "synonyms": [
-                  "i g 8 8",
-                  "i g 88"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "BB-9E"
-              }
-            },
-            {
-              "name": {
-                "value": "2-1B",
-                "synonyms": [
-                  "medical droid"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "BB-8"
-              }
-            },
-            {
-              "name": {
-                "value": "R2-D2",
-                "synonyms": [
-                  "R2"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "4-LOM",
-                "synonyms": [
-                  "4 LOM",
-                  "4 L O M"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "C-3PO",
-                "synonyms": [
-                  "3PO"
-                ]
-              }
-            }
-          ],
-          "name": "Droid"
-        },
-        {
-          "values": [
-            {
-              "name": {
-                "value": "Y-Wing Starfighter",
-                "synonyms": [
-                  "y wing"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "Tie Fighter"
-              }
-            },
-            {
-              "name": {
-                "value": "Ski Speeder"
-              }
-            },
-            {
-              "name": {
-                "value": "Tantive IV",
-                "synonyms": [
-                  "tantive four"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "Speeder Bike"
-              }
-            },
-            {
-              "name": {
-                "value": "Snowspeeder"
-              }
-            },
-            {
-              "name": {
-                "value": "Slave I",
-                "synonyms": [
-                  "slave one"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "Sandcrawler"
-              }
-            },
-            {
-              "name": {
-                "value": "X-Wing Starfighter",
-                "synonyms": [
-                  "x wing"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "Millennium Falcon"
-              }
-            },
-            {
-              "name": {
-                "value": "AT-AT",
-                "synonyms": [
-                  "all terrain armored transport",
-                  "at at"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "AT-ST"
-              }
-            }
-          ],
-          "name": "Vehicle"
-        },
-        {
-          "values": [
-            {
-              "name": {
-                "value": "Yavin 4",
-                "synonyms": [
-                  "yavin four"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "Naboo"
-              }
-            },
-            {
-              "name": {
-                "value": "Kashyyyk",
-                "synonyms": [
-                  "kasheek"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "Jakku"
-              }
-            },
-            {
-              "name": {
-                "value": "Endor"
-              }
-            },
-            {
-              "name": {
-                "value": "Death Star II",
-                "synonyms": [
-                  "death star two"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "Dagobah"
-              }
-            },
-            {
-              "name": {
-                "value": "Bespin"
-              }
-            },
-            {
-              "name": {
-                "value": "Alderaan"
-              }
-            },
-            {
-              "name": {
-                "value": "Death Star"
-              }
-            },
-            {
-              "name": {
-                "value": "Hoth"
-              }
-            },
-            {
-              "name": {
-                "value": "Coruscant"
-              }
-            },
-            {
-              "name": {
-                "value": "Tatooine"
-              }
-            }
-          ],
-          "name": "Location"
-        },
-        {
-          "values": [
-            {
-              "name": {
-                "value": "Blaster Rifle"
-              }
-            },
-            {
-              "name": {
-                "value": "Z6 Riot Control Baton"
-              }
-            },
-            {
-              "name": {
-                "value": "Thermal Detonator"
-              }
-            },
-            {
-              "name": {
-                "value": "Kylo Ren's Lightsaber"
-              }
-            },
-            {
-              "name": {
-                "value": "Ion Cannon"
-              }
-            },
-            {
-              "name": {
-                "value": "Force Lightning"
-              }
-            },
-            {
-              "name": {
-                "value": "Electro-Chain Whip"
-              }
-            },
-            {
-              "name": {
-                "value": "Bowcaster"
-              }
-            },
-            {
-              "name": {
-                "value": "Lightsaber"
-              }
-            },
-            {
-              "name": {
-                "value": "Blaster Pistol",
-                "synonyms": [
-                  "blaster"
-                ]
-              }
-            }
-          ],
-          "name": "Weapon"
-        }
-      ]
-    }
+      }
   }
 }

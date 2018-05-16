@@ -135,72 +135,104 @@ const WeaponHandler = {
         if (resolvedValues === undefined)
         {
             return handlerInput.responseBuilder
-                   .speak("You asked me for a weapon, but I wasn't able to find a match for " + spokenValue + ". " + getRandomQuestion())
-                   .reprompt("You asked me for a weapon, but I wasn't able to find a match for " + spokenValue + ". " + getRandomQuestion())
-                   .getResponse();
-        }
-        else if (resolvedValues.length === 1)
-        {
-            //DO STUFF
-            var filter = "&filterByFormula=%7BName%7D%3D%22" + encodeURIComponent(resolvedValues[0].value.name) + "%22";
-            return new Promise((resolve) => {
-                airtableGet("appb66xqCoGVT3rLF", "Weapon", filter, (record) => {
-                    console.log("AIRTABLE RECORD = " + JSON.stringify(record));
-                    var speechText = "You asked me about " + spokenValue + "<break time='.5s'/>" + record.records[0].fields.VoiceDescription + getRandomQuestion();
-                    this.response.speak(speechText).listen(getRandomQuestion());
-                    this.emit(":responseReady");
+                    .speak("You asked me for a weapon, but I wasn't able to find a match for " + spokenValue + ". " + getRandomQuestion())
+                    .reprompt("You asked me for a weapon, but I wasn't able to find a match for " + spokenValue + ". " + getRandomQuestion())
+                    .getResponse();
+            }
+            else if (resolvedValues.length === 1)
+            {
+                //DO STUFF
+                var filter = "&filterByFormula=%7BName%7D%3D%22" + encodeURIComponent(resolvedValues[0].value.name) + "%22";
+                return new Promise((resolve) => {
+                    airtableGet("appb66xqCoGVT3rLF", "Weapon", filter, (record) => {
+                        console.log("AIRTABLE RECORD = " + JSON.stringify(record));
+                        var speechText = "You asked me about " + spokenValue + "<break time='.5s'/>" + record.records[0].fields.VoiceDescription + getRandomQuestion();
+                        resolve(handlerInput.responseBuilder
+                            .speak(speechText)
+                            .reprompt(getRandomQuestion())
+                            .getResponse());
+                    });
                 });
-            });
+            }
+            else if (resolvedValues.length > 1)
+            {
+                var valuesString = getValuesString(resolvedValues);
+                
+                return handlerInput.responseBuilder
+                    .speak("You asked me about " + spokenValue + ", and I found multiple answers.  Would you like to know about " + valuesString + "?")
+                    .reprompt("Would you like to know about " + valuesString + "?")
+                    .getResponse();
+            }
         }
-        else if (resolvedValues.length > 1)
-        {
-            var valuesString = getValuesString(resolvedValues);
-            
-            return handlerInput.responseBuilder
-                   .speak("You asked me about " + spokenValue + ", and I found multiple answers.  Would you like to know about " + valuesString + "?")
-                   .reprompt("Would you like to know about " + valuesString + "?")
-                   .getResponse();
-        }
-    }
-};
+    };
 
-const DroidHandler = {
-    canHandle(handlerInput) {
-        return handlerInput.requestEnvelope.request.type === "IntentRequest" &&
-               handlerInput.requestEnvelope.request.intent.name === "DroidIntent";
-    },
-    handle(handlerInput, error) {
-        var spokenValue = getSpokenValue(handlerInput.requestEnvelope, "droid");
-        var resolvedValues = getResolvedValues(handlerInput.requestEnvelope, "droid");
-        
-        if (resolvedValues === undefined)
-        {
-            return handlerInput.responseBuilder
-                   .speak("You asked me for a droid, but I wasn't able to find a match for " + spokenValue + ". " + getRandomQuestion())
-                   .reprompt("You asked me for a droid, but I wasn't able to find a match for " + spokenValue + ". " + getRandomQuestion())
-                   .getResponse();
-        }
-        else if (resolvedValues.length === 1)
-        {
-            //DO STUFF
-            var filter = "&filterByFormula=%7BName%7D%3D%22" + encodeURIComponent(resolvedValues[0].value.name) + "%22";
-            return new Promise((resolve) => {
-                airtableGet("appoMzsJvZKwEiwac", "Droid", filter, (record) => {
-                    console.log("AIRTABLE RECORD = " + JSON.stringify(record));
-                    var speechText = "You asked me about " + spokenValue + "<break time='.5s'/>" + record.records[0].fields.VoiceDescription + getRandomQuestion();
-                    this.response.speak(speechText).listen(getRandomQuestion());
-                    this.emit(":responseReady");
-                });
-            });
-        }
-        else if (resolvedValues.length > 1)
-        {
-            var valuesString = getValuesString(resolvedValues);
-            return handlerInput.responseBuilder
-                   .speak("You asked me about " + spokenValue + ", and I found multiple answers.  Would you like to know about " + valuesString + "?")
-                   .reprompt("Would you like to know about " + valuesString + "?")
-                   .getResponse();
-        }
+    const DroidHandler = {
+        canHandle(handlerInput) {
+            return handlerInput.requestEnvelope.request.type === "IntentRequest" &&
+                handlerInput.requestEnvelope.request.intent.name === "DroidIntent";
+        },
+        handle(handlerInput, error) {
+            var spokenValue = getSpokenValue(handlerInput.requestEnvelope, "droid");
+            var resolvedValues = getResolvedValues(handlerInput.requestEnvelope, "droid");
+
+            const locale = handlerInput.requestEnvelope.request.locale;
+            const ms = handlerInput.serviceClientFactory.getMonetizationServiceClient();
+    
+            return ms.getInSkillProducts(locale).then(function(res) {
+
+                var category = res.inSkillProducts.filter(record => record.referenceName == "Droid");
+                
+                //IF USER HAS ACCESS TO THIS PRODUCT
+                if (isEntitled(category)) {
+                    if (resolvedValues === undefined)
+                    {
+                        return handlerInput.responseBuilder
+                            .speak("You asked me for a droid, but I wasn't able to find a match for " + spokenValue + ". " + getRandomQuestion())
+                            .reprompt("You asked me for a droid, but I wasn't able to find a match for " + spokenValue + ". " + getRandomQuestion())
+                            .getResponse();
+                    }
+                    else if (resolvedValues.length === 1)
+                    {
+                        //DO STUFF
+                        var filter = "&filterByFormula=%7BName%7D%3D%22" + encodeURIComponent(resolvedValues[0].value.name) + "%22";
+                        return new Promise((resolve) => {
+                            airtableGet("appoMzsJvZKwEiwac", "Droid", filter, (record) => {
+                                console.log("AIRTABLE RECORD = " + JSON.stringify(record));
+                                var speechText = "You asked me about " + spokenValue + "<break time='.5s'/>" + record.records[0].fields.VoiceDescription + getRandomQuestion();
+                                resolve(handlerInput.responseBuilder
+                                    .speak(speechText)
+                                    .reprompt(getRandomQuestion())
+                                    .getResponse());
+                            });
+                        });
+                    }
+                    else if (resolvedValues.length > 1)
+                    {
+                        var valuesString = getValuesString(resolvedValues);
+                        return handlerInput.responseBuilder
+                            .speak("You asked me about " + spokenValue + ", and I found multiple answers.  Would you like to know about " + valuesString + "?")
+                            .reprompt("Would you like to know about " + valuesString + "?")
+                            .getResponse();
+                    }
+                }
+                else
+                {
+                    const upsellMessage = "You don't currently own the droid pack. " + category[0].summary + " Want to learn more?";
+                    return handlerInput.responseBuilder
+                           .addDirective({
+                                'type': 'Connections.SendRequest',
+                                'name': 'Upsell',
+                                'payload': {
+                                    'InSkillProduct': {
+                                        'productId': category[0].productId
+                                    },
+                                    'upsellMessage': upsellMessage
+                                },
+                                'token': 'correlationToken'
+                            })
+                            .getResponse();
+                }
+        });
     }
 };
 
@@ -272,6 +304,135 @@ const StopHandler = {
     }
 };
 
+//THIS HANDLES THE CONNECTIONS.RESPONSE EVENT AFTER A BUY OCCURS.
+const UpsellResponseHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === "Connections.Response" &&
+               handlerInput.requestEnvelope.request.name === "Upsell";
+    },
+    handle(handlerInput) {
+        console.log("IN UPSELLRESPONSEHANDLER");
+        const locale = handlerInput.requestEnvelope.request.locale;
+        const ms = handlerInput.serviceClientFactory.getMonetizationServiceClient();
+        const productId = handlerInput.requestEnvelope.request.payload.productId;
+
+        if (handlerInput.requestEnvelope.request.status.code == 200) {
+            if (handlerInput.requestEnvelope.request.payload.purchaseResult == 'DECLINED') {
+                return ms.getInSkillProducts(locale).then(function(res) {
+                    let product = res.inSkillProducts.filter(record => record.productId == productId);
+
+                    const speakResponse = "I can tell you about any of the people in the Star Wars universe any time, but to hear about " + product[0].referenceName + "s, you need to purchase the " + product[0].referenceName + " pack." + getRandomQuestion();
+                    const repromptResponse = getRandomQuestion();
+                    return handlerInput.responseBuilder
+                        .speak(speakResponse)
+                        .reprompt(repromptResponse)
+                        .getResponse();
+                });
+            }
+        }
+        else    {
+            // Something failed.
+            console.log('Connections.Response indicated failure. error:' + handlerInput.requestEnvelope.request.status.message);
+            return handlerInput.responseBuilder
+                .speak("There was an error handling your purchase request. Please try again or contact us for help.")
+                .getResponse();
+        }
+   }
+};
+
+
+const BuyHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
+               handlerInput.requestEnvelope.request.intent.name === 'BuyIntent';
+    },
+    handle(handlerInput) {
+        const locale = handlerInput.requestEnvelope.request.locale;
+        const ms = handlerInput.serviceClientFactory.getMonetizationServiceClient();
+        var spokenValue = getSpokenValue(handlerInput.requestEnvelope, "product");
+        var resolvedValues = getResolvedValues(handlerInput.requestEnvelope, "product");
+
+        if (resolvedValues === undefined)
+        {
+            return handlerInput.responseBuilder
+                   .speak("It sounded like you are asking to buy the " + spokenValue + " pack, but that's not something we have to offer.  You can currently buy the droid pack. " + getRandomQuestion())
+                   .reprompt("It sounded like you are asking to buy the " + spokenValue + " pack, but that's not something we have to offer.  You can currently buy the droid pack. " + getRandomQuestion())
+                   .getResponse();
+        }
+        else if (resolvedValues.length === 1)
+        {
+            return ms.getInSkillProducts(locale).then(function(res) {
+                let product = res.inSkillProducts.filter(record => record.referenceName.toLowerCase() == resolvedValues[0].value.name.toLowerCase());
+                return handlerInput.responseBuilder
+                        .addDirective({
+                            'type': 'Connections.SendRequest',
+                            'name': 'Buy',
+                            'payload': {
+                                        'InSkillProduct': {
+                                            'productId': product[0].productId
+                                        }
+                            },
+                            'token': 'correlationToken'
+                        })
+                .getResponse();
+            });
+        }
+        else
+        {
+            var valuesString = getValuesString(resolvedValues);
+            return handlerInput.responseBuilder
+                   .speak("You asked me about " + spokenValue + ", and I found multiple answers.  Would you like to buy the " + valuesString + "?")
+                   .reprompt("Would you like to buy the " + valuesString + "?")
+                   .getResponse();
+        }
+    }
+};
+
+const BuyResponseHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === "Connections.Response" &&
+               handlerInput.requestEnvelope.request.name === "Buy";
+    },
+    handle(handlerInput) {
+  
+        const locale = handlerInput.requestEnvelope.request.locale;
+        const ms = handlerInput.serviceClientFactory.getMonetizationServiceClient();
+        const productId = handlerInput.requestEnvelope.request.payload.productId;
+  
+        return ms.getInSkillProducts(locale).then(function(res) {
+            let product = res.inSkillProducts.filter(record => record.productId == productId);
+  
+            if (handlerInput.requestEnvelope.request.status.code == 200) {
+                if (handlerInput.requestEnvelope.request.payload.purchaseResult == 'ACCEPTED') {
+                    
+                    const speakResponse = "You have successfully purchased the " + product[0].name + "!  Which " + product[0].referenceName + " would you like to know about?";
+                    const repromptResponse = "What else would you like to know?";
+                    return handlerInput.responseBuilder
+                        .speak(speakResponse)
+                        .reprompt(repromptResponse)
+                        .getResponse();
+                }
+                else if (handlerInput.requestEnvelope.request.payload.purchaseResult == 'DECLINED') {
+                    const speakResponse = "Thanks for your interest in the " + product[0].name + ".  What else would you like to know about?";
+                    const repromptResponse = "What else would you like to learn about?";
+                    return handlerInput.responseBuilder
+                        .speak(speakResponse)
+                        .reprompt(repromptResponse)
+                        .getResponse();
+                }
+            }
+            else    {
+                // Something failed.
+                console.log('Connections.Response indicated failure. error:' + handlerInput.requestEnvelope.request.status.message);
+                
+                return handlerInput.responseBuilder
+                    .speak("There was an error handling your purchase request. Please try again or contact us for help.")
+                    .getResponse();
+            }
+        });
+   }
+  };
+
 const SessionEndedHandler = { 
     canHandle(handlerInput) {
         return handlerInput.requestEnvelope.request.type === 'SessionEndedRequest';
@@ -327,6 +488,20 @@ function getResolvedValues(envelope, slotName)
     else return undefined;
 }
 
+function getSlotName(envelope)
+{
+    if (envelope &&
+        envelope.request &&
+        envelope.request.intent &&
+        envelope.request.intent.slots &&
+        envelope.request.intent.slots[0] &&
+        envelope.request.intent.slots[0].name)
+    {
+        return envelope.request.intent.slots[0].name;
+    }
+    else return undefined;
+}
+
 function getValuesString(values)
 {
     var string = "";
@@ -337,6 +512,18 @@ function getValuesString(values)
         string += values[i].value.name;
     }
     return string;
+}
+
+function isProduct(product)
+{
+    return product &&
+           product.length > 0;
+}
+
+function isEntitled(product)
+{
+    return isProduct(product) &&
+           product[0].entitled == 'ENTITLED';
 }
 
 function airtableGet(base, table, filter, callback) {
@@ -386,7 +573,7 @@ const ErrorHandler = {
         console.log("Error handled: " + JSON.stringify(error.message));
         console.log('handlerInput:' + JSON.stringify(handlerInput));
         return handlerInput.responseBuilder
-            .speak('Sorry, I can\'t understand the command. Please try again.')
+            .speak('Sorry, I seem to have encountered some corrupted data files.  I need to power down.')
             .getResponse();
   },
 };
@@ -399,6 +586,9 @@ exports.handler = Alexa.SkillBuilders.standard()
     DroidHandler,
     WeaponHandler,
     VehicleHandler,
+    UpsellResponseHandler,
+    BuyHandler,
+    BuyResponseHandler,
     HelpHandler,
     StopHandler,
     SessionEndedHandler    
