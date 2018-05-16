@@ -254,15 +254,64 @@ const VehicleHandler = {
         }
         else if (resolvedValues.length === 1)
         {
-            //DO STUFF
-            var filter = "&filterByFormula=%7BName%7D%3D%22" + encodeURIComponent(resolvedValues[0].value.name) + "%22";
-            return new Promise((resolve) => {
-                airtableGet("appzXe5WBmcw9DkWt", "Vehicle", filter, (record) => {
-                    console.log("AIRTABLE RECORD = " + JSON.stringify(record));
-                    var speechText = "You asked me about " + spokenValue + "<break time='.5s'/>" + record.records[0].fields.VoiceDescription + getRandomQuestion();
-                    this.response.speak(speechText).listen(getRandomQuestion());
-                    this.emit(":responseReady");
-                });
+            var spokenValue = getSpokenValue(handlerInput.requestEnvelope, "droid");
+            var resolvedValues = getResolvedValues(handlerInput.requestEnvelope, "droid");
+
+            const locale = handlerInput.requestEnvelope.request.locale;
+            const ms = handlerInput.serviceClientFactory.getMonetizationServiceClient();
+    
+            return ms.getInSkillProducts(locale).then(function(res) {
+
+                var category = res.inSkillProducts.filter(record => record.referenceName == "Vehicle");
+                
+                //IF USER HAS ACCESS TO THIS PRODUCT
+                if (isEntitled(category)) {
+                    if (resolvedValues === undefined)
+                    {
+                        return handlerInput.responseBuilder
+                            .speak("You asked me for a droid, but I wasn't able to find a match for " + spokenValue + ". " + getRandomQuestion())
+                            .reprompt("You asked me for a droid, but I wasn't able to find a match for " + spokenValue + ". " + getRandomQuestion())
+                            .getResponse();
+                    }
+                    else if (resolvedValues.length === 1)
+                    {
+                        //DO STUFF
+                        var filter = "&filterByFormula=%7BName%7D%3D%22" + encodeURIComponent(resolvedValues[0].value.name) + "%22";
+                        return new Promise((resolve) => {
+                            airtableGet("appzXe5WBmcw9DkWt", "Vehicle", filter, (record) => {
+                                console.log("AIRTABLE RECORD = " + JSON.stringify(record));
+                                var speechText = "You asked me about " + spokenValue + "<break time='.5s'/>" + record.records[0].fields.VoiceDescription + getRandomQuestion();
+                                this.response.speak(speechText).listen(getRandomQuestion());
+                                this.emit(":responseReady");
+                            });
+                        });
+                    }
+                    else if (resolvedValues.length > 1)
+                    {
+                        var valuesString = getValuesString(resolvedValues);
+                        return handlerInput.responseBuilder
+                            .speak("You asked me about " + spokenValue + ", and I found multiple answers.  Would you like to know about " + valuesString + "?")
+                            .reprompt("Would you like to know about " + valuesString + "?")
+                            .getResponse();
+                    }
+                }
+                else
+                {
+                    const upsellMessage = "You don't currently own the vehicle pack. " + category[0].summary + " Want to learn more?";
+                    return handlerInput.responseBuilder
+                           .addDirective({
+                                'type': 'Connections.SendRequest',
+                                'name': 'Upsell',
+                                'payload': {
+                                    'InSkillProduct': {
+                                        'productId': category[0].productId
+                                    },
+                                    'upsellMessage': upsellMessage
+                                },
+                                'token': 'correlationToken'
+                            })
+                            .getResponse();
+                }
             });
         }
         else if (resolvedValues.length > 1)

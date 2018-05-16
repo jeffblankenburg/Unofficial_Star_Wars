@@ -625,6 +625,14 @@
                                   "droid pack"
                               ]
                           }
+                      },
+                      {
+                          "name": {
+                              "value": "vehicle",
+                              "synonyms": [
+                                  "vehicle pack", "ships", "space ships"
+                              ]
+                          }
                       }
                   ]
               }

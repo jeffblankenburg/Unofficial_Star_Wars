@@ -1,0 +1,50 @@
+{
+  "version": "1.0",
+  "type": "ENTITLEMENT",
+  "referenceName": "Vehicle",
+  "publishingInformation": {
+    "locales": {
+      "en-US": {
+        "name": "Vehicle Pack",
+        "smallIconUri": "https://s3.amazonaws.com/unofficialstarwarsalexaskill/purplebox_108x108.png",
+        "largeIconUri": "https://s3.amazonaws.com/unofficialstarwarsalexaskill/orangebox_512x512.png",
+        "summary": "This gives you access to all of the vehicles in the Star Wars universe.",
+        "description": "You can now ask about any of the vehicles you have seen in Star Wars.",
+        "examplePhrases": [
+          "Alexa, give me the vehicle pack."
+        ],
+        "keywords": [
+          "vehicle"
+        ],
+        "customProductPrompts": {
+          "purchasePromptDescription": "The vehicle pack gives you access to the huge number of vehicles in the Star Wars universe, including the Millennium Falcon, Slave One, and the Star Destroyer.",
+          "boughtCardDescription": "You now own the vehicle pack."
+        }
+      }
+    },
+    "distributionCountries": [
+      "US"
+    ],
+    "pricing": {
+      "amazon.com": {
+        "releaseDate": "2018-05-09",
+        "defaultPriceListing": {
+          "price": 0.99,
+          "currency": "USD"
+        }
+      }
+    },
+    "taxInformation": {
+      "category": "SOFTWARE"
+    }
+  },
+  "privacyAndCompliance": {
+    "locales": {
+      "en-US": {
+        "privacyPolicyUrl": "http://jeffblankenburg.com/privacy"
+      }
+    }
+  },
+  "testingInstructions": "This is the instructions for testing.",
+  "purchasableState": "PURCHASABLE"
+}

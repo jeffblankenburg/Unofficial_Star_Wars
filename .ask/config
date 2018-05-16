@@ -19,6 +19,11 @@
           "deploy_status": "Update",
           "filePath": "isps/entitlement/Droid.json",
           "productId": "amzn1.adg.product.8fc8fc75-ded6-4404-a829-aa9a870ac9d8"
+        },
+        {
+          "deploy_status": "Update",
+          "filePath": "isps/entitlement/Vehicle.json",
+          "productId": "amzn1.adg.product.e14f695a-94b8-44ea-92e7-92dbdda93cc7"
         }
       ]
     }
