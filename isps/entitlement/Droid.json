@@ -17,7 +17,7 @@
           "droid"
         ],
         "customProductPrompts": {
-          "purchasePromptDescription": "The droid pack gives you access.",
+          "purchasePromptDescription": "The droid pack gives you access to the huge number of droids in the Star Wars universe, including C-3PO, BB-8, and many more.",
           "boughtCardDescription": "You now own the droid pack."
         }
       }
